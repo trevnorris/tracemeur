@@ -1,0 +1,11 @@
+{
+  "name": "tracemeur",
+  "author": "Trevor Norris <trev.norris@gmail.com> (http://trevnorris.com)",
+  "version": "0.1.0",
+  "description": "Punch your methods and print counters",
+  "keywords": "debug trace crazy",
+  "repository": "http://github.com/trevnorris/tracemeur.git",
+  "homepage": "http://github.com/trevnorris/tracemeur",
+  "license": "MIT",
+  "main": "tracemeur.js"
+}
