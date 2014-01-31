@@ -23,7 +23,7 @@ var traces_list = {};
 
 module.exports = tracemeur;
 
-process.on('SIGINT', ender);
+process.on('SIGINT', process.exit);
 process.on('exit', ender);
 
 
@@ -155,10 +155,13 @@ function ender() {
 
 
 function prepOutput() {
-  if (output === 'stderr')
+  if (output === 'stderr') {
     print_fd = 2;
-  if (output === 'stdout')
     return;
+  }
+  if (output === 'stdout') {
+    return;
+  }
 
   // We assume output is to a path. So setup the fd.
   if (overwrite_fd)
@@ -169,7 +172,8 @@ function prepOutput() {
 
 
 function closeOutput() {
-  closeSync(print_fd);
+  if (print_fd > 2)
+    closeSync(print_fd);
 }
 
 
