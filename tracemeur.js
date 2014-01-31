@@ -95,6 +95,8 @@ tracemeur.setTraceDepth = function setTraceDepth(n) {
 function perfStat(name, call) {
   // Simple counter for calls.
   calls_list[name+call]++;
+  var current_limit = Error.stackTraceLimit;
+  Error.stackTraceLimit = trace_limit;
 
   // Going to really slow down our process. But counts are more imporant.
   var obj = {};
@@ -103,6 +105,8 @@ function perfStat(name, call) {
   if (!traces_list[trace])
     traces_list[trace] = 0;
   traces_list[trace]++;
+
+  Error.stackTraceLimit = current_limit;
 }
 
 function ender() {
