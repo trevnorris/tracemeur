@@ -1,7 +1,7 @@
 // You won't need the ./ in the name.
 var tracemeur = require('./tracemeur');
 
-var b = { test: function() { } };
+var b = { test() { } };
 
 tracemeur('b.', b, 'test');
 

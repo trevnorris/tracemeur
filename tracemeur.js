@@ -35,13 +35,13 @@ process.on('exit', ender);
 function tracemeur(name, object, fnstring) {
   if (typeof fnstring === 'string') {
     calls_list[name+fnstring] = 0;
-    object[fnstring] = (function(call) {
+    object[fnstring] = ((call => {
       var old_fn = object[call];
-      return function() {
+      return function(...args) {
         perfStat(name, call);
-        return old_fn.apply(this, arguments);
-      }
-    }(fnstring));
+        return old_fn.apply(this, args);
+      };
+    })(fnstring));
     return;
   }
 
@@ -49,13 +49,13 @@ function tracemeur(name, object, fnstring) {
     if (typeof object[i] !== 'function')
       continue;
     calls_list[name+i] = 0;
-    object[i] = (function(call) {
+    object[i] = ((call => {
       var old_fn = object[call];
-      return function() {
+      return function(...args) {
         perfStat(name, call);
-        return old_fn.apply(this, arguments);
-      }
-    }(i));
+        return old_fn.apply(this, args);
+      };
+    })(i));
   }
 }
 
@@ -142,7 +142,7 @@ function ender() {
   if (sortable.length === 0)
     return closeOutput();
 
-  sortable.sort(function(a,b) { return b[1] - a[1]; });
+  sortable.sort((a, b) => b[1] - a[1]);
 
   print('Trace output:' + nl + nl);
   for (i = 0; i < sortable.length; i++) {
